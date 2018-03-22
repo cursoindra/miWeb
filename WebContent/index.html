@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+
+<script type="text/javascript">
+	var app = angular.module("app", []);
+	app.controller("c1", [ "$scope", "$http", function($scope, $http) {
+		$scope.datos;
+
+		var config = {
+			method : "GET",
+			url : "http://localhost:8081/curso/datos/"
+		};
+		var response = $http(config);
+
+		response.success(function(data, status, headers, config) {
+
+			$scope.datos = data;
+		});
+		response.error(function(data, status, headers, config) {
+			alert("error:" + status);
+
+		});
+
+	} ])
+</script>
+</head>
+<body ng-controller="c1">
+
+	<table border="1">
+		<tr>
+			<td><A HREF="#">NOMBRE</A></td>
+			<td><A HREF="#">DIRECCION</A></td>
+			<td><A HREF="#">TELEFONO</A></td>
+		<tr ng-repeat="agenda in datos ">
+			<td ng-bind="agenda.nombre">}</td>
+			<td ng-bind="agenda.direccion"></td>
+			<td ng-bind="agenda.telefono"></td>
+		<tr>
+	</table>
+
+</body>
+</html>
