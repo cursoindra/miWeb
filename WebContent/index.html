@@ -10,23 +10,21 @@
 	var app = angular.module("app", []);
 	app.controller("c1", [ "$scope", "$http", function($scope, $http) {
 		$scope.datos;
-
+		
 		var config = {
-			method : "GET",
-			url : "http://localhost:8081/curso/datos/"
-		};
-		var response = $http(config);
+				method : "GET",
+				url : "http://localhost:8080/curso/datos"
+			};
+		
+		$http.get("https://restcountries.eu/rest/v2/region/europe").then(function(resultado)
+				{
+				$scope.datos=resultado;
+				alert($scope.datos[0]);
+				})
+	}
+		
 
-		response.success(function(data, status, headers, config) {
-
-			$scope.datos = data;
-		});
-		response.error(function(data, status, headers, config) {
-			alert("error:" + status);
-
-		});
-
-	} ])
+	 ]);"WebContent/index.html"
 </script>
 </head>
 <body ng-controller="c1">
@@ -37,9 +35,9 @@
 			<td><A HREF="#">DIRECCION</A></td>
 			<td><A HREF="#">TELEFONO</A></td>
 		<tr ng-repeat="agenda in datos ">
-			<td ng-bind="agenda.nombre">}</td>
-			<td ng-bind="agenda.direccion"></td>
-			<td ng-bind="agenda.telefono"></td>
+			<td ng-bind="agenda.name"></td>
+			<td ng-bind="agenda.capital"></td>
+			<td ng-bind="agenda.population"></td>
 		<tr>
 	</table>
 
